@@ -1,0 +1,9 @@
+server:
+  port: 8081
+  address: 10.10.1.*
+  tomcat:
+#  最大线程数
+    max-threads: 800
+    uri-encoding: UTF-8
+  error:
+    path: /
