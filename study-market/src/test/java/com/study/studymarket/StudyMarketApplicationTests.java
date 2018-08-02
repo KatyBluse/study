@@ -11,6 +11,7 @@ public class StudyMarketApplicationTests {
 
     @Test
     public void contextLoads() {
+
     }
 
 }

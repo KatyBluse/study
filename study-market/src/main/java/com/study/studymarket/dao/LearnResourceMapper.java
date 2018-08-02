@@ -1,10 +1,12 @@
 package com.study.studymarket.dao;
 
 import com.study.studymarket.model.LearnResouce;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
 
+@Mapper
 public interface LearnResourceMapper {
 
     int add(LearnResouce learnResouce);
