@@ -1,5 +1,6 @@
 package com.study.studymarket.controller;
 
+import com.study.studymarket.annotation.Get;
 import com.study.studymarket.common.config.MiniPrograme;
 import com.study.studymarket.common.util.weixin.RestData;
 import com.study.studymarket.common.util.weixin.miniProgram.ClientUtil;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +29,7 @@ public class LoginController {
 //    private User
     @ApiOperation(value = "发送信息", notes = "展示用返回test")
     @RequestMapping(value = "/sendMsg", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
     public String sendMsg(){
         return "test";
     }
@@ -83,5 +86,12 @@ public class LoginController {
      * */
     public void getUserInfo (String iv, String encryptedData, String openId) {
 
+    }
+
+
+    @Get(sh = "/ttttt", val = "/ttttt")
+    @ResponseBody
+    public String test() {
+        return "test";
     }
 }

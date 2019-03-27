@@ -1,0 +1,12 @@
+#*****公共参数配置*****
+
+#mybatis配置
+mybatis:
+  #bean所在包
+  type-aliases-package: com.study.studymarket.model
+  mapper-locations: classpath:mybatis/*.xml
+
+#配置环境（开发dev、测试test、预生产rc，生产pro）
+spring:
+  profiles:
+    active: test
