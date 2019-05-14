@@ -1,26 +1,16 @@
 package com.study.studymarket.common.util.elasticSearch;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.study.studymarket.common.config.ElasticsearchRestClient;
 import com.study.studymarket.common.util.elasticSearch.annotations.*;
 import com.study.studymarket.common.util.elasticSearch.enums.Container;
 import com.study.studymarket.common.util.elasticSearch.enums.Operator;
 import com.study.studymarket.common.util.elasticSearch.exception.SearchQueryBuildException;
 import com.study.studymarket.common.util.elasticSearch.model.ScrollId;
-import com.study.studymarket.model.document.Unimed;
-import com.sun.tools.doclets.internal.toolkit.util.IndexBuilder;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.HttpHost;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -33,7 +23,6 @@ import org.elasticsearch.search.aggregations.metrics.sum.InternalSum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumAggregationBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Page;
@@ -43,14 +32,11 @@ import org.springframework.data.elasticsearch.core.ScrolledPage;
 import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import static com.study.studymarket.common.util.elasticSearch.enums.Container.*;
@@ -67,8 +53,6 @@ public class SimpleSearchQueryEngine <T> extends SearchQueryEngine<T> {
      * scroll游标快照超时时间，单位ms
      */
     private static final long SCROLL_TIMEOUT = 5000;
-
-    private static RestHighLevelClient client;
 
     @Override
     public int saveOrUpdate(List<T> list) {
@@ -141,15 +125,8 @@ public class SimpleSearchQueryEngine <T> extends SearchQueryEngine<T> {
         if (id == null) {
             throw new SearchQueryBuildException("Can't find _id on " + model.getClass().getName());
         }
-        String hostName = elasticsearchRestClient.getHOST_NAME();
-        int port = elasticsearchRestClient.getPORT();
-        RestHighLevelClient restHighLevelClient = new RestHighLevelClient(
-                RestClient.builder(
-                        new HttpHost(hostName, port,"http")
-                )
-        );
+
         XContentBuilder content = null;
-        IndexResponse response = null;
         try {
             content = XContentFactory.jsonBuilder().startObject();
             for (Field field : modelClass.getDeclaredFields()) {
@@ -162,22 +139,17 @@ public class SimpleSearchQueryEngine <T> extends SearchQueryEngine<T> {
                     content.field(name, value);
                 }
             }
-            IndexRequest request = new IndexRequest(document.index(), document.type());
-            request.id(getFieldValue(id, model).toString());
-            request.source(content.endObject());
-            response = restHighLevelClient.index(request, RequestOptions.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-//        IndexQuery indexQuery = new IndexQueryBuilder()
-//                .withIndexName(document.index())
-//                .withType(document.type())
-//                .withId()
-//                .withObject(content)
-//                .build();
-//        elasticsearchTemplate.index(request);
+        IndexQuery indexQuery = new IndexQueryBuilder()
+                .withIndexName(document.index())
+                .withType(document.type())
+                .withId(getFieldValue(id, model).toString())
+                .withObject(model)
+                .build();
+        elasticsearchTemplate.index(indexQuery);
 
         return null;
     }

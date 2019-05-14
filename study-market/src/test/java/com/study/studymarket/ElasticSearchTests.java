@@ -79,7 +79,7 @@ public class ElasticSearchTests {
     @Test
     public void getById() {
 
-        Optional<Unimed> result =  unimedRepository.findById("w5oKhmoBlqVtt0MAQeeu");
+        Optional<Unimed> result =  unimedRepository.findById("1");
         if (result != null) {
             System.out.println(result.get());
         }

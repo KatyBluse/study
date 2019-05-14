@@ -22,8 +22,6 @@ public abstract class SearchQueryEngine<T> {
 
     @Autowired
     protected ElasticsearchTemplate elasticsearchTemplate;
-    @Autowired
-    protected ElasticsearchRestClient elasticsearchRestClient;
 
 
     public abstract int saveOrUpdate(List<T> list);
