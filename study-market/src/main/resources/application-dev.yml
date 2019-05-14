@@ -43,7 +43,17 @@ spring:
       # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
+# ES
+  data:
+    elasticsearch:
+      #是否开启本地存储
+      repositories:
+        enabled: true
+      #节点的地址
+      cluster-nodes: localhost:9300
+#      cluster-name: xcpApOp
 
-
-
+restClient:
+  host-name: 127.0.0.1
+  host-port: 9200
 

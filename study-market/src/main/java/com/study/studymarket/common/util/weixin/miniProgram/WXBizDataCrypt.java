@@ -5,6 +5,9 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -82,11 +85,11 @@ public class WXBizDataCrypt {
     }
 
     public static void main(String[] args) {
-        WXBizDataCrypt wxBizDataCrypt = new WXBizDataCrypt("wx836dd89f7951e8a6", "9bSA60sLP7XhUgydp4jIYQ==");
-        String encryptedData ="KBkRCuukLFeoh9XvC4zOudZt8op/98qA48IKME96t4S1HKz0D+2R4NQxhx9PxN3/p7bDhrksVcdr1Uz3v2xtsJZIIVJgazoBXvvwkCT87iAhvG8zeDgw1elvBF6FJ6X1O2In7oYy/qjpNKAKj/3v78EXvMboYC0N1XBv4AvieQKwqHChdS9xFEId1VWr8Nae8nD7CFHgOJY1WrlmE/0DwyOSmLFnB5bwGGZ9LyuA0//vJuvMrJMOvdarsPC+UtivY5YDVSn2HxB5inuWBpPT0w9KSxTrcHNVtzw3DIWGOlj9eLMgL9hLiaRlt6sV07rBPIgiggvqIo+La6SsSRPkz2dF6ZNTgcW/k3gL2az5u5r2S7axyHEdyRAgw6R2cpAV+uUls0DGvNXxe+azusrxKw3eeKiy0GV8M+P9PautWrryp0Z7dWfucVtSoasxyKCqnEni+4nbITmVq16NIXt80vPNiupNnF2nzN1tj57DH1w=";
-        String iv = "jVeB5NAciUr0/DSGRlacNA==";
-        String result = wxBizDataCrypt.decryptData(encryptedData, iv);
-        System.out.println(result);
+//        WXBizDataCrypt wxBizDataCrypt = new WXBizDataCrypt("wx836dd89f7951e8a6", "9bSA60sLP7XhUgydp4jIYQ==");
+//        String encryptedData ="KBkRCuukLFeoh9XvC4zOudZt8op/98qA48IKME96t4S1HKz0D+2R4NQxhx9PxN3/p7bDhrksVcdr1Uz3v2xtsJZIIVJgazoBXvvwkCT87iAhvG8zeDgw1elvBF6FJ6X1O2In7oYy/qjpNKAKj/3v78EXvMboYC0N1XBv4AvieQKwqHChdS9xFEId1VWr8Nae8nD7CFHgOJY1WrlmE/0DwyOSmLFnB5bwGGZ9LyuA0//vJuvMrJMOvdarsPC+UtivY5YDVSn2HxB5inuWBpPT0w9KSxTrcHNVtzw3DIWGOlj9eLMgL9hLiaRlt6sV07rBPIgiggvqIo+La6SsSRPkz2dF6ZNTgcW/k3gL2az5u5r2S7axyHEdyRAgw6R2cpAV+uUls0DGvNXxe+azusrxKw3eeKiy0GV8M+P9PautWrryp0Z7dWfucVtSoasxyKCqnEni+4nbITmVq16NIXt80vPNiupNnF2nzN1tj57DH1w=";
+//        String iv = "jVeB5NAciUr0/DSGRlacNA==";
+//        String result = wxBizDataCrypt.decryptData(encryptedData, iv);
+//        System.out.println(result);
 
 //        String rawData = "{\"nickName\":\"南湘梓木\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"Anqing\",\"province\":\"Anhui\",\"country\":\"China\",\"avatarUrl\":\"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJZNpvn3iaLjLhpTQq9pGc2ibk9Siav0akCJJ7xLT9Mic0d3JibPkCAuxmqRdQ8ZDEAwGkcMialefuTEbYA/132\"}";
 //        String sessionKey = "RZGxVcGZ6e/dpmx2iwSCHA==";
@@ -94,6 +97,9 @@ public class WXBizDataCrypt {
 //        WXBizDataCrypt.checkSignature(rawData, signature, sessionKey);
 
 
+        LocalDate localDate = LocalDate.of(2019, 1, 13);
+        WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,4);
+        System.out.println(localDate.get(weekFields.weekOfMonth()));
 
     }
 }

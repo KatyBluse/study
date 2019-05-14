@@ -20,8 +20,8 @@ spring:
     active: test
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    password: d4f@Q,MXU6Fky)w)P
+    url: jdbc:mysql://192.168.1.200:3306/hospital?useUnicode=true&characterEncoding=utf-8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
@@ -49,8 +49,25 @@ spring:
 #      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
 #      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 #      aop-patterns: com.study.studymarket.controller.*
+
+  # ES
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      cluster-nodes: localhost:9300
+#      cluster-name: xcpApOp
+
+restClient:
+  host-name: 127.0.0.1
+  host-port: 9200
+
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
   type-aliases-package: com.study.studymarket.model
 
 #springfox.documentation.swagger.v2.path: /api-docs
+
+
+
+
