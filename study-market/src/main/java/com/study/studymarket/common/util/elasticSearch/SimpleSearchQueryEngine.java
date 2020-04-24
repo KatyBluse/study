@@ -366,8 +366,8 @@ public class SimpleSearchQueryEngine <T> extends SearchQueryEngine<T> {
         buildRangeQuery(boolQueryBuilder, query);  // range 查询
         buildTermQuery(boolQueryBuilder, query); // term 检索
         buildExistQuery(boolQueryBuilder, query); // exist 条件
-        BoolQueryBuilder queryBuilder = boolQuery().must(boolQueryBuilder);
-        return queryBuilder;
+//        BoolQueryBuilder queryBuilder = boolQuery().must(boolQueryBuilder);
+        return boolQueryBuilder;
     }
 
     /**

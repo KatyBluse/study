@@ -228,4 +228,49 @@ public class ElasticSearchTests {
 //        }
     }
 
+    @Test
+//    选择排序(选择最小的 or 最大)
+    public void select_sort() {
+        int[] array = new int[] {341, 21, 54, 1, 123, 5213, 654, 345};
+        for (int i=0; i< array.length -1; i++) {
+//            System.out.println("i:"+array[i]);
+            int minIndex = i;
+
+            // 这里面的思想是找最小，比如说for循环第一次找到21最小，然后从21开始遍历找比21还小的数。
+            for (int j=i+1; j<array.length; j++) {
+//                这里的 ><决定是大到小还是小到大
+                if (array[j] > array[minIndex]) {
+                    minIndex = j;
+                }
+            }
+//            System.out.println("i:"+i+",minIndex"+minIndex);
+            if (minIndex != i) {
+                int temp = array[i];
+                array[i] = array[minIndex];
+                array[minIndex] = temp;
+            }
+            for (int m=0; m< array.length; m++) {
+                System.out.println(array[m]+",");
+            }
+            System.out.println("");
+        }
+    }
+
+    /**
+     * 插入排序
+     *
+     * */
+    @Test
+    public void insert_sort() {
+        int[] array = new int[] {341, 21, 54, 1, 123, 5213, 654, 345};
+        for (int i = 0; i< array.length; i++) {
+            // 提取当前的
+            int temp = array[i];
+            //从当前序列最右边的开始向左比，找到比其小的数
+            int j = i;
+//            while (j > 0; j < ) {
+//
+//            }
+        }
+    }
 }

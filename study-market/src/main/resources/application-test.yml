@@ -20,9 +20,9 @@ spring:
     active: test
   datasource:
     username: root
-    password: d4f@Q,MXU6Fky)w)P
-    url: jdbc:mysql://192.168.1.200:3306/hospital?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    driver-class-name: com.mysql.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
     # 数据库连接池配置
@@ -56,6 +56,10 @@ spring:
       repositories:
         enabled: true
       cluster-nodes: localhost:9300
+  # health监控报错配置以下
+  elasticsearch:
+    rest:
+      uris: ["http://localhost:9200"]
 #      cluster-name: xcpApOp
 
 restClient:
